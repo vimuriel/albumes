@@ -21,7 +21,7 @@
         <tr>
             <th>Usuario</th>
         </tr>        
-        <tr th:each="city : ${userList}">
+        <tr th:each="user : ${userList}">
             <td th:text="${user.nombre}">-</td>
         </tr>
     </table>

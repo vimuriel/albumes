@@ -1,0 +1,94 @@
+@startuml
+package "model" #DDDDDD {
+  class user
+  class album
+  class imagen
+}
+
+package "Repository" #DDDDDD {
+  class UserRepository
+  class AlbumRepository
+  class ImagenRepository
+}
+
+package "Controller" #DDDDDD {
+  class UserController
+  class AlbumController
+  class ImagenController
+}
+
+
+
+class user{
+  +nombre
+  +password
+  +crear(string usuario, string password)
+}
+
+class album{
+  +id
+  +nombre
+  +descripcion
+  +usuario
+  +ruta
+  +crear(string usuario, string nombre,string descripcion)
+  +borrar(int id)
+}
+
+class imagen{
+  +nombre
+  +album
+  +image
+  +fecha
+  +crear(string nombre, int albumId, String image, date fecha)
+  +eliminar(String image,String album)
+}
+
+class UserRepository{
+  +crearUsuario(string usuario,string password)
+  +loguin(string usuario,string password)
+}
+class UserController{
+  +userRepository
+  +crearUsuario(string usuario,string password)
+  +loguin(string usuario,string password)
+  +cerrarSesion(string usuario)
+}
+
+class AlbumRepository{
+  +getAlbumesUsuario(string usuario)
+  +borrarAlbum(int id)
+}
+
+class AlbumController{
+  +albumRepository
+  +getAlbumesUsuario(string usuario)
+  +borrarAlbum(int id)
+}
+
+class ImagenRepository{
+  +getImagenesAlbum(int albumId)
+  +getImagen(String name)
+  +getImagenPorFecha(date fecha)
+  +eliminar(String image,String album)
+}
+
+class ImagenController{
+  +imagenRepository
+  +getImagenesAlbum(int albumId)
+  +getImagen(String name)
+  +eliminar(String image,String album)
+}
+
+
+
+user *- album : >
+
+imagen -* album : < 
+
+UserController-- UserRepository: > 
+AlbumController-- AlbumRepository: > 
+AlbumController-- ImagenRepository: > 
+ImagenController-- ImagenRepository: > 
+
+@enduml
